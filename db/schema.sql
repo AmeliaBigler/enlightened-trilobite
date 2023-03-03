@@ -1,0 +1,20 @@
+DROP DATABASE IF EXISTS business_db;
+CREATE DATABASE business_db;
+
+USE business_db;
+
+-- TODO: add other rows to tables
+CREATE TABLE employees (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  employeeName VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE departments (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  departmentName VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE roles (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  roleName VARCHAR(30) NOT NULL
+)
