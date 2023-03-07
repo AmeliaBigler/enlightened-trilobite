@@ -10,8 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "console-table-printer": "^2.11.1",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "inquirer": "^8.2.4",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.29.0"
   }
 }
