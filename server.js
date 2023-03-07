@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const { printTable } = require('console-table-printer');
 
+const sequelize = require('./config/connection');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -9,21 +11,10 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    // MySQL username,
-    user: 'root',
-    // MySQL password
-    password: '',
-    database: 'business_db'
-  },
-  console.log(`Connected to the business_db database.`)
-);
-
 // TODO: add CRUD routes
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+
+// Connect to database
+sequelize.sync().then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
+});
