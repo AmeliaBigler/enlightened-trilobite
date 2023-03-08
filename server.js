@@ -14,7 +14,7 @@ app.use(express.json());
 // TODO: add CRUD routes
 
 
-// Connect to database
+// Connect to database and start server
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
