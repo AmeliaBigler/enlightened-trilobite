@@ -1,6 +1,8 @@
 // Packages/modules needed for this application
 const fs = require("fs");
 const inquirer = require("inquirer");
+const db = require("./config/connection");
+const { printTable } = require('console-table-printer');
 
 const Employee = require('./lib/employee');
 const Department = require('./lib/department');
@@ -71,33 +73,77 @@ const roleQs = [
     },
 ];
 
+const employeeList = [
+    // TODO: dynamically list employees
+]
+
+const managerList = [
+    // TODO: dynamically list managers
+]
+
+const departmentList = [
+    // TODO: dynamically list departments
+]
+
+const roleList = [
+    // TODO: dynamically list departments
+]
+
 function promptQsFunction() {
     inquirer.prompt(menuQ)
     .then((data) => {
-        // TODO: add other menuQ options
         if(data.menuQ === 'Add employee') {
             inquirer.prompt(employeeQs)
             .then((data) => {
                 const newEmployee = new Employee(data.first_name, data.last_name, data.role, data.manager);
                 newEmployee.save();
                 promptQsFunction();
-            })
+            });
+        } else if (data.menuQ === 'View all employees') {
+            const sql = `SELECT * FROM employee`;
+            db.query(sql, (err, res) => {
+                if (err) {
+                    throw err;
+                }
+                printTable(res);       
+                promptQsFunction();
+            });  
+        } else if (data.menuQ === 'Update employee role') {
+            // TODO: update employee role code
         } else if (data.menuQ === 'Add department') {
             inquirer.prompt(departmentQs)
             .then((data) => {
                 const newDepartment = new Department(data.department_name);
                 newDepartment.save();
                 promptQsFunction();
-            })
+            });
+        } else if (data.menuQ === 'View all departments') {
+            const sql = `SELECT * FROM department`;
+            db.query(sql, (err, res) => {
+                if (err) {
+                    throw err;
+                }
+                printTable(res);
+                promptQsFunction();       
+            });  
         } else if (data.menuQ === 'Add role') {
             inquirer.prompt(roleQs)
             .then((data) => {
                 const newRole = new Role(data.title, data.salary, data.department_id);
                 newRole.save();
                 promptQsFunction();
-            })
+            });
+        } else if (data.menuQ === 'View all roles') {
+            const sql = `SELECT * FROM role`;
+            db.query(sql, (err, res) => {
+                if (err) {
+                    throw err;
+                }
+                printTable(res);
+                promptQsFunction();       
+            });
         } else {
-            console.log('Success!');
+            console.log('Goodbye!');
         }
     });
 }
