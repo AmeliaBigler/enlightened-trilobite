@@ -78,22 +78,22 @@ function promptQsFunction() {
         if(data.menuQ === 'Add employee') {
             inquirer.prompt(employeeQs)
             .then((data) => {
-                const newEmployee = new Employee(data.id, data.first_name, data.last_name, data.role, data.manager);
-                // TODO: CRUD
+                const newEmployee = new Employee(data.first_name, data.last_name, data.role, data.manager);
+                newEmployee.save();
                 promptQsFunction();
             })
         } else if (data.menuQ === 'Add department') {
             inquirer.prompt(departmentQs)
             .then((data) => {
                 const newDepartment = new Department(data.department_name);
-                // TODO: CRUD
+                newDepartment.save();
                 promptQsFunction();
             })
         } else if (data.menuQ === 'Add role') {
             inquirer.prompt(roleQs)
             .then((data) => {
                 const newRole = new Role(data.title, data.salary, data.department_id);
-                // TODO: CRUD
+                newRole.save();
                 promptQsFunction();
             })
         } else {
@@ -105,7 +105,7 @@ function promptQsFunction() {
 // Define function to initialize app
 function init() {
     promptQsFunction();
-}
+};
 
 // Function call to initialize app
 init();
